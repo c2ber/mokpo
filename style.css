@@ -1,0 +1,670 @@
+/* ==============================
+   기본
+============================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  background: #faf8f4;
+
+  color: #252525;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans KR",
+    Arial,
+    sans-serif;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+
+/* ==============================
+   전체
+============================== */
+
+.container {
+
+  width:
+    min(
+      1000px,
+      calc(100% - 32px)
+    );
+
+  margin: 0 auto;
+
+  padding:
+    60px 0 45px;
+
+}
+
+
+/* ==============================
+   상단
+============================== */
+
+.header {
+
+  text-align: center;
+
+  margin-bottom: 40px;
+
+}
+
+.header h1 {
+
+  margin: 0;
+
+  font-size: 40px;
+
+  font-weight: 900;
+
+  letter-spacing: -2px;
+
+}
+
+.header p {
+
+  margin:
+    12px 0 0;
+
+  color: #888;
+
+  font-size: 16px;
+
+}
+
+
+/* ==============================
+   카테고리
+============================== */
+
+.categories {
+
+  display: flex;
+
+  gap: 10px;
+
+  overflow-x: auto;
+
+  padding:
+    3px 2px 12px;
+
+  margin-bottom: 15px;
+
+  scrollbar-width: none;
+
+}
+
+.categories::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+.category-button {
+
+  flex: 0 0 auto;
+
+  border:
+    1px solid #e9e5de;
+
+  background: white;
+
+  color: #555;
+
+  border-radius: 30px;
+
+  padding:
+    11px 20px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0,0,0,.035);
+
+  transition:
+    transform .15s,
+    background .15s;
+
+}
+
+.category-button:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+.category-button.active {
+
+  background: #382b1d;
+
+  border-color: #382b1d;
+
+  color: white;
+
+}
+
+
+/* ==============================
+   검색
+============================== */
+
+.search-area {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  height: 55px;
+
+  padding:
+    0 17px;
+
+  background: white;
+
+  border:
+    1px solid #e7e3dd;
+
+  border-radius: 13px;
+
+  box-shadow:
+    0 3px 12px
+    rgba(0,0,0,.035);
+
+}
+
+.search-icon {
+
+  font-size: 17px;
+
+}
+
+.search-area input {
+
+  width: 100%;
+
+  height: 100%;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+
+  font-size: 15px;
+
+}
+
+
+/* ==============================
+   정보
+============================== */
+
+.info {
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  padding:
+    11px 3px 15px;
+
+  color: #aaa;
+
+  font-size: 12px;
+
+}
+
+
+/* ==============================
+   맛집 목록
+============================== */
+
+.restaurant-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+}
+
+
+/* ==============================
+   카드
+============================== */
+
+.restaurant-card {
+
+  display: grid;
+
+  grid-template-columns:
+    250px 1fr;
+
+  min-height: 235px;
+
+  padding: 17px;
+
+  background: white;
+
+  border:
+    1px solid #eee9e2;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 5px 18px
+    rgba(0,0,0,.045);
+
+  overflow: hidden;
+
+  transition:
+    transform .15s,
+    box-shadow .15s;
+
+}
+
+.restaurant-card:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 8px 22px
+    rgba(0,0,0,.07);
+
+}
+
+
+/* ==============================
+   이미지
+============================== */
+
+.image-box {
+
+  width: 100%;
+
+  height: 205px;
+
+  overflow: hidden;
+
+  border-radius: 13px;
+
+  background: #f3eee6;
+
+}
+
+.image-box img {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+}
+
+.image-fallback {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #f7f2e9,
+      #ece2d3
+    );
+
+}
+
+.image-fallback span {
+
+  display: block;
+
+  font-size: 65px;
+
+}
+
+.image-fallback small {
+
+  display: block;
+
+  margin-top: 8px;
+
+  color: #aa9d8d;
+
+  font-size: 12px;
+
+}
+
+
+/* ==============================
+   카드 내용
+============================== */
+
+.card-content {
+
+  padding:
+    6px 8px 4px 32px;
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+.category-badge {
+
+  display:
+    inline-flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  padding:
+    5px 11px;
+
+  background: #fff2dc;
+
+  color: #8a5b13;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+}
+
+.menu-title {
+
+  margin:
+    13px 0 4px;
+
+  font-size: 28px;
+
+  line-height: 1.25;
+
+  letter-spacing: -1px;
+
+  font-weight: 900;
+
+}
+
+.main-label {
+
+  color: #ae7400;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+}
+
+
+/* ==============================
+   코멘트
+============================== */
+
+.comment {
+
+  margin-top: 15px;
+
+  color: #666;
+
+  font-size: 15px;
+
+  line-height: 1.65;
+
+}
+
+.quote {
+
+  color: #c4a36b;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+}
+
+
+/* ==============================
+   하단 버튼
+============================== */
+
+.card-bottom {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: auto;
+
+  padding-top: 15px;
+
+}
+
+.naver-button {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  padding:
+    10px 17px;
+
+  border:
+    1.5px solid #03c75a;
+
+  border-radius: 9px;
+
+  color: #03a94f;
+
+  background: white;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  transition: .15s;
+
+}
+
+.naver-button:hover {
+
+  background: #03c75a;
+
+  color: white;
+
+}
+
+.naver-n {
+
+  font-size: 17px;
+
+  font-weight: 900;
+
+}
+
+
+/* ==============================
+   검색 결과 없음
+============================== */
+
+.empty {
+
+  padding:
+    70px 20px;
+
+  text-align: center;
+
+  color: #999;
+
+}
+
+.empty-icon {
+
+  margin-bottom: 10px;
+
+  font-size: 45px;
+
+}
+
+.hidden {
+
+  display: none;
+
+}
+
+
+/* ==============================
+   Footer
+============================== */
+
+footer {
+
+  margin-top: 45px;
+
+  text-align: center;
+
+  color: #aaa;
+
+  font-size: 12px;
+
+}
+
+
+/* ==============================
+   모바일
+============================== */
+
+@media
+(max-width: 700px) {
+
+  .container {
+
+    width:
+      calc(100% - 22px);
+
+    padding-top: 35px;
+
+  }
+
+
+  .header {
+
+    margin-bottom: 30px;
+
+  }
+
+
+  .header h1 {
+
+    font-size: 30px;
+
+  }
+
+
+  .header p {
+
+    font-size: 14px;
+
+  }
+
+
+  .restaurant-card {
+
+    grid-template-columns:
+      1fr;
+
+    padding: 12px;
+
+  }
+
+
+  .image-box {
+
+    height: 220px;
+
+  }
+
+
+  .card-content {
+
+    padding:
+      18px 6px 5px;
+
+  }
+
+
+  .menu-title {
+
+    font-size: 24px;
+
+  }
+
+
+  .card-bottom {
+
+    margin-top: 20px;
+
+  }
+
+
+  .naver-button {
+
+    width: 100%;
+
+    padding: 12px;
+
+  }
+
+
+  .info {
+
+    font-size: 11px;
+
+  }
+
+}
