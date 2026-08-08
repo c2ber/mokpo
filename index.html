@@ -3,23 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>나의 맛집 지도</title>
 
-  <meta
-    name="description"
-    content="직접 먹어보고 기억해두고 싶은 맛집 모음"
-  >
+  <meta name="description" content="직접 먹어보고 기억해두고 싶은 맛집 모음">
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 </head>
 
 
@@ -154,30 +144,24 @@
 
       .map(line => {
 
-        const [
-          id,
-          category,
-          menu,
-          map,
-          comment = ""
-        ] = line.split("|");
-
-
-        return {
-
-          id: id.trim(),
-
-          category: category.trim(),
-
-          menu: menu.trim(),
-
-          map: map.trim(),
-
-          comment: comment.trim()
-
-        };
-
-      });
+      const [
+        id,
+        category,
+        name,
+        menu,
+        map,
+        comment = ""
+      ] = line.split("|");
+      
+      return {
+        id: id.trim(),
+        category: category.trim(),
+        name: name.trim(),
+        menu: menu.trim(),
+        map: map.trim(),
+        comment: comment.trim()
+      };
+    });
 
 
     /* ---------------------------------
