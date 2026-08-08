@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>나의 맛집 지도</title>
+
+  <meta
+    name="description"
+    content="직접 먹어보고 기억해두고 싶은 맛집 모음"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+
+<body>
+
+  <main class="container">
+
+    <!-- 상단 -->
+    <header class="header">
+
+      <h1>🍴 나의 맛집 지도</h1>
+
+      <p>
+        먹어보고 기억해두고 싶은 곳들
+      </p>
+
+    </header>
+
+
+    <!-- 카테고리 -->
+    <nav
+      id="categories"
+      class="categories"
+    ></nav>
+
+
+    <!-- 검색 -->
+    <div class="search-area">
+
+      <span class="search-icon">
+        🔍
+      </span>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="메뉴나 코멘트를 검색해보세요"
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <!-- 개수 -->
+    <div class="info">
+
+      <span id="resultCount"></span>
+
+      <span id="lastUpdate"></span>
+
+    </div>
+
+
+    <!-- 맛집 카드 -->
+    <section
+      id="restaurantList"
+      class="restaurant-list"
+    ></section>
+
+
+    <!-- 검색 결과 없음 -->
+    <div
+      id="emptyMessage"
+      class="empty hidden"
+    >
+
+      <div class="empty-icon">
+        🍽️
+      </div>
+
+      <strong>
+        검색 결과가 없습니다
+      </strong>
+
+    </div>
+
+
+    <!-- 하단 -->
+    <footer>
+
+      직접 먹어보고 하나씩 기록하는 맛집 리스트 😎
+
+    </footer>
+
+  </main>
+
+
+  <!--
+    ★ 맛집 데이터
+    data.js가 먼저 로드되어야 함
+  -->
+  <script src="data.js"></script>
+
+
+  <script>
+
+    /* ---------------------------------
+       기본 설정
+    --------------------------------- */
+
+    const categoryIcons = {
+
+      "한식": "🍚",
+      "중식": "🥢",
+      "일식": "🍣",
+      "양식": "🍝",
+      "카페": "☕",
+      "술집": "🍺",
+      "뷔페": "🍽️",
+      "태국": "🌶️",
+      "기타": "🍴"
+
+    };
+
+
+    let selectedCategory = "전체";
+
+
+    /* ---------------------------------
+       data.js 읽기
+    --------------------------------- */
+
+    const restaurants = window.rawMenus
+
+      .trim()
+
+      .split("\n")
+
+      .map(line => line.trim())
+
+      .filter(line => line)
+
+      .map(line => {
+
+        const [
+          id,
+          category,
+          menu,
+          map,
+          comment = ""
+        ] = line.split("|");
+
+
+        return {
+
+          id: id.trim(),
+
+          category: category.trim(),
+
+          menu: menu.trim(),
+
+          map: map.trim(),
+
+          comment: comment.trim()
+
+        };
+
+      });
+
+
+    /* ---------------------------------
+       HTML 문자 처리
+    --------------------------------- */
+
+    function escapeHTML(value) {
+
+      return String(value)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    /* ---------------------------------
+       카테고리 아이콘
+    --------------------------------- */
+
+    function getIcon(category) {
+
+      return categoryIcons[category]
+        || "🍴";
+
+    }
+
+
+    /* ---------------------------------
+       카테고리 버튼 자동 생성
+    --------------------------------- */
+
+    function createCategories() {
+
+      const container =
+        document.getElementById(
+          "categories"
+        );
+
+
+      const categories = [
+
+        "전체",
+
+        ...new Set(
+
+          restaurants.map(
+            item => item.category
+          )
+
+        )
+
+      ];
+
+
+      categories.forEach(category => {
+
+        const button =
+          document.createElement(
+            "button"
+          );
+
+
+        button.className =
+          "category-button";
+
+
+        if (category === "전체") {
+
+          button.classList.add(
+            "active"
+          );
+
+        }
+
+
+        if (category === "전체") {
+
+          button.textContent =
+            "전체";
+
+        }
+
+        else {
+
+          button.textContent =
+            `${getIcon(category)} ${category}`;
+
+        }
+
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedCategory =
+              category;
+
+
+            document
+              .querySelectorAll(
+                ".category-button"
+              )
+              .forEach(btn => {
+
+                btn.classList.remove(
+                  "active"
+                );
+
+              });
+
+
+            button.classList.add(
+              "active"
+            );
+
+
+            renderRestaurants();
+
+          }
+        );
+
+
+        container.appendChild(
+          button
+        );
+
+      });
+
+    }
+
+
+    /* ---------------------------------
+       이미지 영역
+    --------------------------------- */
+
+    function createImage(item) {
+
+      const box =
+        document.createElement(
+          "div"
+        );
+
+
+      box.className =
+        "image-box";
+
+
+      const img =
+        document.createElement(
+          "img"
+        );
+
+
+      /*
+        001이면
+        img/001.jpg 자동 호출
+      */
+
+      img.src =
+        `img/${item.id}.jpg`;
+
+
+      img.alt =
+        item.menu;
+
+
+      img.loading =
+        "lazy";
+
+
+      /*
+        이미지가 없으면
+        자동으로 이모지 표시
+      */
+
+      img.onerror = function() {
+
+        box.innerHTML = `
+
+          <div class="image-fallback">
+
+            <div>
+
+              <span>
+                ${getIcon(item.category)}
+              </span>
+
+              <small>
+                사진 준비중
+              </small>
+
+            </div>
+
+          </div>
+
+        `;
+
+      };
+
+
+      box.appendChild(img);
+
+
+      return box;
+
+    }
+
+
+    /* ---------------------------------
+       카드 만들기
+    --------------------------------- */
+
+    function createCard(item) {
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "restaurant-card";
+
+
+      /* 이미지 */
+
+      const image =
+        createImage(item);
+
+
+      /* 내용 */
+
+      const content =
+        document.createElement(
+          "div"
+        );
+
+
+      content.className =
+        "card-content";
+
+
+      const safeMenu =
+        escapeHTML(item.menu);
+
+
+      const safeCategory =
+        escapeHTML(item.category);
+
+
+      const safeComment =
+        escapeHTML(item.comment);
+
+
+      content.innerHTML = `
+
+        <div>
+
+          <span class="category-badge">
+
+            ${getIcon(item.category)}
+
+            ${safeCategory}
+
+          </span>
+
+
+          <h2 class="menu-title">
+
+            ${safeMenu}
+
+          </h2>
+
+
+          <div class="main-label">
+
+            ⭐ 대표메뉴
+
+          </div>
+
+
+          ${
+            item.comment
+
+            ?
+
+            `
+
+            <div class="comment">
+
+              <span class="quote">
+                “
+              </span>
+
+              ${safeComment}
+
+            </div>
+
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+
+        <div class="card-bottom">
+
+          <a
+            href="${item.map}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="naver-button"
+          >
+
+            <span class="naver-n">
+              N
+            </span>
+
+            네이버 지도
+
+          </a>
+
+        </div>
+
+      `;
+
+
+      card.appendChild(
+        image
+      );
+
+
+      card.appendChild(
+        content
+      );
+
+
+      return card;
+
+    }
+
+
+    /* ---------------------------------
+       화면 출력
+    --------------------------------- */
+
+    function renderRestaurants() {
+
+      const container =
+        document.getElementById(
+          "restaurantList"
+        );
+
+
+      const keyword =
+        document
+          .getElementById(
+            "searchInput"
+          )
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      let filtered =
+        restaurants.filter(item => {
+
+
+          /* 카테고리 */
+
+          const categoryOK =
+
+            selectedCategory === "전체"
+
+            ||
+
+            item.category ===
+            selectedCategory;
+
+
+          /* 검색 */
+
+          const searchText =
+
+            `${item.menu} ${item.comment} ${item.category}`
+
+            .toLowerCase();
+
+
+          const searchOK =
+
+            !keyword
+
+            ||
+
+            searchText.includes(
+              keyword
+            );
+
+
+          return (
+            categoryOK
+            &&
+            searchOK
+          );
+
+        });
+
+
+      /*
+        최신 등록한 번호가
+        위로 나오도록 역순
+      */
+
+      filtered.sort(
+
+        (a, b) =>
+
+          Number(b.id)
+          -
+          Number(a.id)
+
+      );
+
+
+      container.innerHTML = "";
+
+
+      filtered.forEach(item => {
+
+        container.appendChild(
+
+          createCard(item)
+
+        );
+
+      });
+
+
+      /* 개수 */
+
+      document
+        .getElementById(
+          "resultCount"
+        )
+        .textContent =
+
+          `맛집 ${filtered.length}곳`;
+
+
+      /* 결과 없음 */
+
+      document
+        .getElementById(
+          "emptyMessage"
+        )
+        .classList
+        .toggle(
+
+          "hidden",
+
+          filtered.length > 0
+
+        );
+
+    }
+
+
+    /* ---------------------------------
+       검색 이벤트
+    --------------------------------- */
+
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .addEventListener(
+
+        "input",
+
+        renderRestaurants
+
+      );
+
+
+    /* ---------------------------------
+       업데이트 날짜
+    --------------------------------- */
+
+    document
+      .getElementById(
+        "lastUpdate"
+      )
+      .textContent =
+
+        `업데이트 ${window.lastUpdate}`;
+
+
+    /* ---------------------------------
+       시작
+    --------------------------------- */
+
+    createCategories();
+
+    renderRestaurants();
+
+  </script>
+
+</body>
+
+</html>
