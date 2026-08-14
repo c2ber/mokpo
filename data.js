@@ -1,4 +1,4 @@
-window.lastUpdate = "2026-08-08";
+window.lastUpdate = "2026-08-14";
 
 window.rawMenus = `
 001|한식|해남해장국|뼈해장국|https://naver.me/Fmf6PDBd|맑은 국물
