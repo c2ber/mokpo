@@ -10,8 +10,8 @@ window.rawMenus = `
 007|해산물|바다포차|계절 해산물,회|https://naver.me/5S9QI0hI|굴보쌈,전어,방어 등등
 008|술집|목포씨|조개전골,조개찜,회|https://naver.me/FdCLdRyu|뉴비..
 009|해산물|만선식당|벤댕이회|https://naver.me/xOxXHf77|경험 해볼만한 곳
-010|밥집|해촌|바지락비빔밥|https://naver.me/5iTdeYDG|
-011|밥집|해빔|꽃게살 해초비빔밥|https://naver.me/xtgpn42x|
+010|밥집|해빔|꽃게살 해초비빔밥|https://naver.me/xtgpn42x|
+011|밥집|해촌|바지락비빔밥|https://naver.me/5iTdeYDG|
 012|밥집|서울해장국|김치찌개|https://naver.me/5WOjh1Ln|평일 함박스테이크 공짜
 013|해산물|긴자회수산|해산물모듬|https://naver.me/5yPnR8hp|예약필수..
 014|해산물|송학낙지회관|연포탕,호롱이|https://naver.me/xY4syoJx|
