@@ -46,16 +46,12 @@ button, input {
 /* 카테고리 */
 .categories {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  overflow-x: auto;
   padding: 3px 2px 12px;
   margin-bottom: 15px;
-  scrollbar-width: none;
 }
 
-.categories::-webkit-scrollbar {
-  display: none;
-}
 
 .category-button {
   flex: 0 0 auto;
