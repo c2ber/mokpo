@@ -208,16 +208,24 @@ const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 
 document.addEventListener("click", e => {
+
+  // 음식 사진 클릭
   if (e.target.matches(".image-box img")) {
     modalImage.src = e.target.src;
     imageModal.classList.add("show");
     document.body.classList.add("modal-open");
   }
 
-  if (e.target === imageModal || e.target.matches(".image-close")) {
+  // 검은 배경 또는 X 클릭
+  if (
+    e.target === imageModal ||
+    e.target.classList.contains("image-close")
+  ) {
     imageModal.classList.remove("show");
     document.body.classList.remove("modal-open");
+    modalImage.src = "";
   }
+
 });
 
 </script>
