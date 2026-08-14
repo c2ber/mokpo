@@ -13,6 +13,7 @@ window.rawMenus = `
 010|밥집|해촌|바지락비빔밥|https://naver.me/5iTdeYDG|
 011|밥집|해빔|꽃게살 해초비빔밥|https://naver.me/xtgpn42x|
 012|밥집|서울해장국|김치찌개|https://naver.me/5WOjh1Ln|평일 함박스테이크 공짜
-
+013|해산물|긴자회수산|해산물모듬|https://naver.me/5yPnR8hp|예약필수..
+014|해산물|송학낙지회관|연포탕,호롱이|https://naver.me/xY4syoJx|
 
 `;
