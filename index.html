@@ -206,7 +206,29 @@ document.getElementById("lastUpdate").textContent = `업데이트 ${window.lastU
 
 createCategories();
 renderRestaurants();
+
+const imageModal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+
+document.addEventListener("click", e => {
+  if (e.target.matches(".image-box img")) {
+    modalImage.src = e.target.src;
+    imageModal.classList.add("show");
+    document.body.classList.add("modal-open");
+  }
+
+  if (e.target === imageModal || e.target.matches(".image-close")) {
+    imageModal.classList.remove("show");
+    document.body.classList.remove("modal-open");
+  }
+});
+
 </script>
+<!-- 사진 확대 -->
+<div id="imageModal" class="image-modal">
+  <span class="image-close">×</span>
+  <img id="modalImage" src="" alt="">
+</div>
 
 </body>
 </html>
