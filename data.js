@@ -18,7 +18,7 @@ window.rawMenus = `
 015|밥집|미지아레스토|배추셀러드|https://naver.me/GI3JDJf4|양식집
 016|카페|코롬방제과점|새우바게트|https://naver.me/5YFcB559|복귀할때 사가셔
 017|밥집|태동반점|중깐|https://naver.me/F884a3f1|짜장을 시키면 짬뽕, 탕수육 공짜
-018|해산물|선경준치회집|홍어삼합|https://naver.me/F3TX64w8|
+018|해산물|선경준치회집|벤댕이회|https://naver.me/F3TX64w8|
 019|카페|SUKSAN|뷰맛집|https://naver.me/5tJTCm58|케이블카 타고 여가가셈
 020|술집|88포장마차 평화광장점|김밥,생똥집|https://naver.me/GqfdupwR|
 
